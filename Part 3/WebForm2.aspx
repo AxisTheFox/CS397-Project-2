@@ -11,7 +11,8 @@
     <div>
         
         <p>Select Major:<br />
-            <asp:DropDownList ID="ddlMajors" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlMajors_SelectedIndexChanged"></asp:DropDownList>
+            <asp:DropDownList ID="ddlMajors" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlMajors_SelectedIndexChanged">
+            </asp:DropDownList>
         </p>
 
     </div>

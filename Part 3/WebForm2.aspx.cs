@@ -11,17 +11,19 @@ namespace Part_3
 {
     public partial class WebForm2 : System.Web.UI.Page
     {
+        ListItem selectMajorListItem = new ListItem("- Select Major -");
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 FillMajorsDropDown();
             }
-
         }
 
         protected void ddlMajors_SelectedIndexChanged(object sender, EventArgs e)
         {
+            ddlMajors.Items.Remove(selectMajorListItem);
             OleDbConnection conn = ConnectToDatabase();
             OleDbCommand cmd = CreateOleDbCommand("select * from Academics as a inner join Information as i on a.StudentIDNumber=i.StudentIDNumber where a.MajorCode=@m", conn);
             cmd.Parameters.AddWithValue("@m", ddlMajors.SelectedValue);
@@ -44,6 +46,7 @@ namespace Part_3
 
         private void FillMajorsDropDown()
         {
+            ddlMajors.Items.Add(selectMajorListItem);
             OleDbConnection conn = ConnectToDatabase();
             OleDbCommand cmd = CreateOleDbCommand("select distinct MajorName, MajorCode from Majors", conn);
             conn.Open();
