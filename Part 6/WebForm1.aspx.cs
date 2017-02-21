@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace Part_5
+namespace Part_6
 {
     public partial class WebForm1 : System.Web.UI.Page
     {
@@ -17,16 +17,16 @@ namespace Part_5
 
         }
 
-        protected void btnSearch_Click(object sender, EventArgs e)
+        protected void searchButton_Click(object sender, EventArgs e)
         {
             OleDbConnection conn = new OleDbConnection(ConfigurationManager.ConnectionStrings["StudentsConnection"].ConnectionString);
-            OleDbCommand cmd = new OleDbCommand("SELECT * FROM Information WHERE Zip=@z", conn);
-            cmd.Parameters.AddWithValue("@z", tbxZipSearch.Text);
+            OleDbCommand cmd = new OleDbCommand("select GPA, FirstName, LastName from Information as i inner join Academics as a on i.StudentIDNumber=a.StudentIDNumber where GPA>=@gpa", conn);
+            cmd.Parameters.AddWithValue("@gpa", gpaSearchBox.Text);
             OleDbDataAdapter da = new OleDbDataAdapter(cmd);
             DataTable dt = new DataTable();
             da.Fill(dt);
-            gvDisplay.DataSource = dt;
-            gvDisplay.DataBind();
+            displayGridView.DataSource = dt;
+            displayGridView.DataBind();
         }
     }
 }
